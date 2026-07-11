@@ -1,29 +1,46 @@
 #include <iostream>
 
+namespace Lokal_space { //for creation own napespaces
+void print_woof(void)
+{
+    std::cout << "Lokal_space --- woof-woof" << std::endl;
+}
+
+namespace Arguments {
+    int salary_may = 5500;
+}
+}
+
+void print_woof(void)
+{
+    std::cout << "woof-woof" << std::endl;
+}
+
+
+int salary_may = 3400;
+
+namespace Lokal_space {
+void show_option(void)
+{
+    std::cout << "1. get metasploit" << std::endl;
+    std::cout << "2. remove nikto" << std::endl;
+
+}
+}
+
 int main(void) {
 
-    char storage[] = "Establish";
-    unsigned int number = 3000000000;
-    float point_num = 3.1415962535;
 
-    std::cout << "Before: " << '\n' << storage << '\n' << number << '\n' << point_num << '\n';
-    std::cout << "----------------" << '\n';
+    int salary_may = 1200;
+    std::cout << salary_may << std::endl; // lokal var
 
-    std::cout << "Enter new variables: " << '\n';
+    std::cout << ::salary_may << std::endl; // global var - use :: for it
 
-    std::cin >> storage; // it reads only to the first space
-    std::cin >> number;
-    std::cin >> point_num;
+    Lokal_space::print_woof();
 
-    std::cout << "----------------" << '\n';
-
-    std::cout << "After: " << '\n';
-
-    std::cout << storage << '\n';
-    std::cout << number << '\n';
-    std::cout << point_num << '\n';
-
-    std::cout << "----------------" << '\n';
+    print_woof(); // ordinary
+    
+    std::cout << Lokal_space::Arguments::salary_may << std::endl;
 
     return 0;
 }
