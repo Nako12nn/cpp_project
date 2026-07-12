@@ -1,46 +1,77 @@
 #include <iostream>
 
-namespace Lokal_space { //for creation own napespaces
-void print_woof(void)
+double add(double a, double b)
 {
-    std::cout << "Lokal_space --- woof-woof" << std::endl;
+    return a + b;
 }
 
-namespace Arguments {
-    int salary_may = 5500;
-}
-}
-
-void print_woof(void)
+double substract(double a, double b)
 {
-    std::cout << "woof-woof" << std::endl;
+    return a - b;
 }
 
-
-int salary_may = 3400;
-
-namespace Lokal_space {
-void show_option(void)
+double power(double a, double b)
 {
-    std::cout << "1. get metasploit" << std::endl;
-    std::cout << "2. remove nikto" << std::endl;
+    return a * b;
+}
 
+double divide(double a, double b)
+{
+    return (b != 0) ? (a / b) : false;
 }
+
+void show_err(void)
+{
+    std::cout << "You can only use + - * / and numbers" << '\n';
 }
+
 
 int main(void) {
+    using std::cout;
+    using std::cin;
+    using std::endl;
+
+    double a = 0;
+    double b = 0;
+    char operation;
+    double result = 0;
+
+    cin >> a;
+    cin >> operation;
+    cin >> b;
+
+    if(operation == '/' && not b) {
+        cout << "0 zero division error" << '\n';
+        return 1;
+    }
 
 
-    int salary_may = 1200;
-    std::cout << salary_may << std::endl; // lokal var
-
-    std::cout << ::salary_may << std::endl; // global var - use :: for it
-
-    Lokal_space::print_woof();
-
-    print_woof(); // ordinary
+    switch (operation)
+    {
+    case '+':
+        result = add(a, b);
+        break;
     
-    std::cout << Lokal_space::Arguments::salary_may << std::endl;
+    case '-':
+        result = substract(a, b);
+        break;
+    
+    case '*':
+        result = power(a, b);
+        break;
 
+    case '/':
+        result = divide(a, b);
+        break;
+
+    default:
+        show_err();
+        return 1;
+    }
+
+    if(not result) cout << "0 division error" << '\n';
+    cout << result << '\n';
+
+    
     return 0;
 }
