@@ -1,47 +1,47 @@
 #include <iostream>
+#include "calculatorFunctions.h"
 
+#if 0
 double add(double a, double b)
 {
     return a + b;
 }
 
-double substract(double a, double b)
+double subtract(double a, double b)
 {
     return a - b;
 }
 
-double power(double a, double b)
+double multiply(double a, double b)
 {
     return a * b;
 }
 
 double divide(double a, double b)
 {
-    return (b != 0) ? (a / b) : false;
+    return (a / b);
 }
 
-void show_err(void)
+void show_err()
 {
     std::cout << "You can only use + - * / and numbers" << '\n';
 }
+#endif
 
 
-int main(void) {
-    using std::cout;
-    using std::cin;
-    using std::endl;
+int main() {
 
     double a = 0;
     char operation;
     double b = 0;
     double result = 0;
 
-    cin >> a;
-    cin >> operation;
-    cin >> b;
+    std::cin >> a;
+    std::cin >> operation;
+    std::cin >> b;
 
-    if(operation == '/' && not b) {
-        cout << "0 zero division error" << '\n';
+    if(operation == '/' && b == 0.0) {
+        std::cout << "0 zero division error" << '\n';
         return 1;
     }
 
@@ -53,11 +53,11 @@ int main(void) {
         break;
     
     case '-':
-        result = substract(a, b);
+        result = subtract(a, b);
         break;
     
     case '*':
-        result = power(a, b);
+        result = multiply(a, b);
         break;
 
     case '/':
@@ -69,7 +69,7 @@ int main(void) {
         return 1;
     }
 
-    cout << result << '\n';
+    std::cout << result << '\n';
     
     return 0;
 }
