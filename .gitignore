@@ -2,3 +2,5 @@
 main
 calculator
 tests
+.DS_Store
+myCalculator
