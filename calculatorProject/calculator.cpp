@@ -1,5 +1,5 @@
 #include <iostream>
-#include <limits>
+#include <limits> // lib for clear and ignore
 //#include "calculatorFunctions.h"
 
 double get_number()
@@ -7,10 +7,10 @@ double get_number()
     double number = 0;
     while (!(std::cin >> number))
     {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Error, enter correct numeric value" << '\n';
+        std::cin.clear(); // clear console from error 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // remove incorrect value from variable
     }
-
     return number;
 }
 
@@ -19,67 +19,53 @@ char get_operation_sign()
 {
     char operation;
     std::cin >> operation;
-    
+    while(!(operation == '+' || operation == '-' || 
+            operation == '*' || operation == '/')) {
+        std::cout << "Enter correct operation sign" << '\n';
+        std::cin >> operation;
+    }
     return operation;
 }
 
 
-int check_operation_sign(char operation)
-{
-    if(operation == '+' || operation == '-' || 
-       operation == '*' || operation == '/')
-        return true;
-    else
-        return false;
-}
-
-
-void print_zero_division_err()
-{
-    std::cout << "0 zero division error" << '\n';
-}
-
-
-void print_result(double a, double operation, char b)
+void print_result(double left_operand, char operation, double right_operand)
 {
     if(operation == '+')
-        std::cout << a + b << '\n';
+        std::cout << left_operand + right_operand << '\n';
 
     else if(operation == '-')
-        std::cout << a - b << '\n';
+        std::cout << left_operand - right_operand << '\n';
 
     else if(operation == '*')
-        std::cout << a * b << '\n';
+        std::cout << left_operand * right_operand << '\n';
 
     else if(operation == '/')
-        std::cout << a / b << '\n';        
-    
-    else 
-        return;
+        std::cout << left_operand / right_operand << '\n';        
+}
 
+
+int check_zero_division_error(char operation, double right_operand)
+{
+    if(operation == '/' && right_operand == 0)
+        return 1;
+
+    else 
+    {
+        return 0;
+    }
 }
 
 int main() {
 
-    double a = get_number();
+    double left_operand = get_number();
     char operation = get_operation_sign();
-    double b = get_number();
+    double right_operand = get_number();
 
-
-    if(!(check_operation_sign(operation))) {
-        std::cout << "Error sign" << '\n';
+    if(check_zero_division_error(operation, right_operand)) {
+        std::cout << "Undefined" << '\n';
         return 1;
     }
-
-
-    if(operation == '/' && b == 0.0) {
-        print_zero_division_err();
-        return 1;
-    }
-    
-    std::cout << "main works" << '\n';
-
-    print_result(a, operation, b);
+    print_result(left_operand, operation, right_operand);
     
     return 0;
 }
