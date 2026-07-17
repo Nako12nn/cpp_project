@@ -28,19 +28,25 @@ char get_operation_sign()
 }
 
 
-void print_result(double left_operand, char operation, double right_operand)
+double get_result(double left_operand, char operation, double right_operand)
 {
     if(operation == '+')
-        std::cout << left_operand + right_operand << '\n';
+        return left_operand + right_operand;
 
-    else if(operation == '-')
-        std::cout << left_operand - right_operand << '\n';
+    if(operation == '-')
+        return left_operand - right_operand;
 
-    else if(operation == '*')
-        std::cout << left_operand * right_operand << '\n';
+    if(operation == '*')
+        return left_operand * right_operand;
 
-    else if(operation == '/')
-        std::cout << left_operand / right_operand << '\n';        
+    if(operation == '/')
+        return left_operand / right_operand;
+}
+
+
+void print_result(double result)
+{
+    std::cout << result << '\n';
 }
 
 
@@ -65,7 +71,10 @@ int main() {
         std::cout << "Undefined" << '\n';
         return 1;
     }
-    print_result(left_operand, operation, right_operand);
+
+    double result = get_result(left_operand, operation, right_operand);
+
+    print_result(result);
     
     return 0;
 }
