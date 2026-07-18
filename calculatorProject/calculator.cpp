@@ -22,6 +22,8 @@ char get_operation_sign()
     while(!(operation == '+' || operation == '-' || 
             operation == '*' || operation == '/')) {
         std::cout << "Enter correct operation sign" << '\n';
+        std::cin.clear(); // clear console from error 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> operation;
     }
     return operation;
@@ -30,17 +32,21 @@ char get_operation_sign()
 
 double get_result(double left_operand, char operation, double right_operand)
 {
+    double result = 0;
+    
     if(operation == '+')
-        return left_operand + right_operand;
+        result = left_operand + right_operand;
 
     if(operation == '-')
-        return left_operand - right_operand;
+        result = left_operand - right_operand;
 
     if(operation == '*')
-        return left_operand * right_operand;
+        result = left_operand * right_operand;
 
     if(operation == '/')
-        return left_operand / right_operand;
+        result = left_operand / right_operand;
+
+    return result;
 }
 
 
@@ -55,10 +61,7 @@ int check_zero_division_error(char operation, double right_operand)
     if(operation == '/' && right_operand == 0)
         return 1;
 
-    else 
-    {
-        return 0;
-    }
+    return 0;
 }
 
 int main() {
@@ -69,7 +72,7 @@ int main() {
 
     if(check_zero_division_error(operation, right_operand)) {
         std::cout << "Undefined" << '\n';
-        return 1;
+        return 0;
     }
 
     double result = get_result(left_operand, operation, right_operand);
